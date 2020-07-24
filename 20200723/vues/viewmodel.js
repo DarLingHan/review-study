@@ -43,6 +43,9 @@ function defineReactive (obj, key, value) {
         }
     })
 }
+function $set(obj, key, value) {
+    defineReactive(obj, key, value)
+}
 
 observe(obj);
 observe(objArr);
@@ -61,4 +64,10 @@ observe(objArr);
 
 // 4.
 // obj是一个数组
-objArr.push(123)
+// objArr.push(123)
+
+// 5.新的属性没有监听
+// obj.sale = 'bag'
+$set(obj, 'sale', 'bag')
+obj.sale = 'cap'
+console.log(obj)
