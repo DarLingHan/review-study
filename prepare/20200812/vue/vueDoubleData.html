@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>DOM-JS数据绑定方案</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1 v-text="title"></h1>
+      <p>当前时间：<span v-text="time"></span></p>
+    </div>
+    <script>
+    // 3.实现一个简单的 DOM-JS数据绑定方案，要求在 JS 中改变变量数据后 DOM 视图会自动更新
+      function ViewBind({ el = 'body', data = {}} = {}) {
+        // TODO，请在此书写代码
+        let handler = {
+          get (target, key) {
+            return Reflect.get(target, key)
+          },
+          set (target, key, newVal) {
+            let elements = document.getElementById(el.split('#')[1]).childNodes
+            changeView(elements, key, newVal)
+            return Reflect.set(target, key, newVal)
+          }
+        }
+        let proxy = new Proxy(data, handler)
+        return {
+          data: proxy
+        }
+      }
+
+      // 改变视图
+      function changeView (elements, key, newVal) {
+        for (let ele of elements) {
+          if (ele.childNodes.length > 0) {
+            changeView(ele.childNodes, key, newVal)
+          }
+          if (ele.nodeType === 1 && ele.getAttribute('v-text') === key) {
+            ele.innerText = newVal
+          }
+        }
+      }
+      
+  
+      /**
+       * step: 1
+       * 调用方式类似 Vue 初始化，
+       * el 代表根元素，data 中的字段会自动和 DOM 中 v-text 属性对应元素内容绑定
+       **/
+      const app = new ViewBind({
+        el: '#app',
+        data: {
+          title: '这是标题',
+          time: +new Date()
+        }
+      })
+      /**
+       * step: 2
+       * 初始化之后页面#app显示效果如下：
+        <div id="app">
+          <h1 v-text="title">这是标题</h1>
+          <p>当前时间戳：<span v-text="time">1522070099060</span></p>
+        </div>
+       * 类似于 Vue，初始化之后 app 内部有一个 data 对象，
+       * 通过修改 data 对象的属性来间接修改 DOM 中挂载了对应 v-text 属性的元素内容
+       **/
+      setInterval(() => {
+        // 定时修改页面上<span v-text="time">元素中的内容
+        app.data.time = +new Date()
+      }, 1000)
+  
+      /**
+       * step3: 请实现上述 ViewBind 方法
+       * 提示：可参考 Vue 中响应式数据绑定和指令的实现原理
+       **/
+    </script>
+  </body>
+  </html>
