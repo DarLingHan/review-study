@@ -1,27 +1,27 @@
+const { reject, resolve } = require("./promiseEs5")
 
-// 链式调用 所以then返回的还是一个新的promise
 function Promise (exector) {
     this.status = 'pending'
     this.value = ''
     this.reason = ''
-    this.onFullFilledArr = []
-    this.onRejectFilledArr = []
+    this.onFullfilledCallbacks = []
+    this.onRejectedCallbacks = []
     let self = this
-    function resolve (value) {
+    function resolve(value) {
         if (value instanceof Promise) {
             return value.then(resolve, reject)
         }
         if (self.status === 'pending') {
             self.status = 'resolved'
             self.value = value
-            self.onFullFilledArr.forEach(fn => fn());
+            self.onFullfilledCallbacks.forEach(fn => fn())
         }
     }
-    function reject (msg) {
+    function reject(reason) {
         if (self.status === 'pending') {
             self.status = 'rejected'
-            self.reason = msg
-            self.onRejectFilledArr.forEach(fn => fn())
+            self.reason = reason
+            self.onRejectedCallbacks.forEach(fn => fn())
         }
     }
     try {
@@ -30,44 +30,38 @@ function Promise (exector) {
         reject(error)
     }
 }
-function resolvePromise (promise2, x, resolve, reject) {
-    if (promise2 === x) {throw new TypeError('循环引用')}
-    if (x !== null && (typeof x === 'function' || typeof x === 'object')) {
-        let called;
-        try {
-            let then = x.then
-            if (typeof then === 'function') {
-                then.call(x, y=>{
-                    if(called) return
-                    called = true
-                    // resolve(y)
-                    resolvePromise(promise2, y, resolve, reject)
-                }, r => {
-                    if(called) return
-                    called = true
-                    reject(r)
-                })
-            } else {
-                resolve(x)
-            }
-        } catch (error) {
-            if(called) return
-            called = true
-            reject(error)
+
+function resolvePromise(promise2, x, resolve, reject) {
+    if (promise2 === x) {
+        // 循环引用
+        throw new TypeError('循环引用')
+    }
+    if (x !== null && (typeof x === 'object' || typeof x === 'function')) {
+        let then = x.then
+        if (typeof then === 'function') {
+            then.call(x, y => {
+                // resolve(y)
+                resolvePromise(promise2, y, resolve, reject)
+            }, r => {
+                reject(r)
+            })
+        } else {
+            // then: {}
+            resolve(x)
         }
     } else {
         resolve(x)
     }
 }
 
-Promise.prototype.then = function (onFullFilled, onRejected) {
-    onFullFilled = typeof onFullFilled === 'function' ? onFullFilled : val=>val
-    onRejected = typeof onRejected === 'function' ? onRejected : err =>{ throw err}
+Promise.prototype.then = function (onFullfilled, onRejected) {
+    onFullfilled = typeof onFullfilled === 'function' ? onFullfilled : val => val
+    onRejected = typeof onRejected === 'function' ? onRejected : err => {throw err}
     let promise2 = new Promise((resolve, reject) => {
         if (this.status === 'resolved') {
             setTimeout(() => {
                 try {
-                    let x = onFullFilled(this.value)
+                    let x = onFullfilled(this.value)
                     resolvePromise(promise2, x, resolve, reject)
                 } catch (error) {
                     reject(error)
@@ -82,20 +76,20 @@ Promise.prototype.then = function (onFullFilled, onRejected) {
                 } catch (error) {
                     reject(error)
                 }
-            })
+            });
         }
         if (this.status === 'pending') {
-            this.onFullFilledArr.push(()=> {
+            this.onFullfilledCallbacks.push(() => {
                 setTimeout(() => {
                     try {
-                        let x = onFullFilled(this.value)
+                        let x = onFullfilled(this.value)
                         resolvePromise(promise2, x, resolve, reject)
                     } catch (error) {
                         reject(error)
                     }
                 })
             })
-            this.onRejectFilledArr.push(()=>{
+            this.onRejectedCallbacks.push(() => {
                 setTimeout(() => {
                     try {
                         let x = onRejected(this.reason)
@@ -103,14 +97,14 @@ Promise.prototype.then = function (onFullFilled, onRejected) {
                     } catch (error) {
                         reject(error)
                     }
-                })
+                });
             })
         }
     })
     return promise2
 }
 
-Promise.prototype.catch = function(errCallback) {
+Promise.prototype.catch = function (errCallback) {
     return this.then(null, errCallback)
 }
 
@@ -120,20 +114,21 @@ Promise.resolve = function (value) {
     })
 }
 
-Promise.reject = function(reason) {
+Promise.reject = function (reason) {
     return new Promise((resolve, reject) => {
         reject(reason)
     })
 }
 
 Promise.all = function (values) {
-    return new Promise ((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         let arr = []
         let count = 0
         function processData(key, val) {
             arr[key] = val
             if (++count === values.length) {
                 resolve(arr)
+                // console.log(arr)
             }
         }
         for (let i in values) {
@@ -142,7 +137,9 @@ Promise.all = function (values) {
             if (then && typeof then === 'function') {
                 current.then(y => {
                     processData(i, y)
-                }, reject)
+                }, r => {
+                    reject(r)
+                })
             } else {
                 processData(i, current)
             }
