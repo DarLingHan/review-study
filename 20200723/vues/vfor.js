@@ -18,7 +18,7 @@
   * v-html
   * 就是innerHtml
   * 导致xss攻击，不要把用户输入的直接显示出来 cross site scripting 跨站脚本攻击
-  * 执行用户输入对脚步或其他脚步 很危险
+  * 执行用户输入对脚本或其他脚本 很危险
   * 
   * CSRF 跨站请求伪造 cross site request forgery
   * XSS利用的是用户对指定网站对信任
