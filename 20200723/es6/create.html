@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action = "/result" method="POST">
+    <div class="col-lg-5">
+        <input type="radio" name="type" value="1" checked="checked" onchange="radioSelect('1')"/>标准单应用
+        <input type="radio" name="type" value="2" onchange="radioSelect('2')"/>简版多应用
+    </div>
+    <p class="ops">应用名 <input type = "text" name = "ops"/></p>
+    <p class="ops_list">应用列表 <textarea type = "text" name = "ops_list" placeholder="应用列表"/></textarea></p>
+    <p>产   品 <input type = "text" name = "pm"/></p>
+    <p>开   发 <input type = "text" name = "rd"/></p>
+    <p>测   试 <input type = "text" name = "qa"/></p>
+    <p>机器人tk <input type = "text" name = "tk"/></p>
+
+    <p><input type = "submit" value = "创建上线提醒"></p>
+</form>
+</body>
+<script>
+    function radioSelect(radioVal) {
+        // let radios = document.getElementsByName('type')
+        // let radioVal = ''
+        // radios.forEach(item => {
+        //     if (item.checked) {
+        //         radioVal = item.value
+        //         return
+        //     }
+        // })
+        if (radioVal + '' === '1') {
+            // 标准单应用选中
+            document.getElementsByClassName('ops')[0].style = 'display: none;'
+            document.getElementsByClassName('ops_list')[0].style = 'display: block;'
+        } else {
+            // 简版多应用选中
+            document.getElementsByClassName('ops')[0].style = 'display: block;'
+            document.getElementsByClassName('ops_list')[0].style = 'display: none;'
+        }
+    }
+    radioSelect('1')
+</script>
+</html>
