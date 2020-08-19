@@ -27,6 +27,7 @@ let obj2 = {0:1, 1:2, 2:3, length:3, [Symbol.iterator]: function* () {
 // 写一个类数组：有索引、长度、迭代器-》就可以展开成一个数组
 // 1.扩展运算符
 // 2.Array.from
+// 3.Array.prototype.slice.call(obj)
 
 function fn () {
     // 方法1

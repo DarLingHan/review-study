@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div ref="app">{{msg}}</div>
+        <span ref="name">{{name}}</span>
+        <input type="text" v-model="name">
+    </div>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data () {
+                return {
+                    msg: 'hello',
+                    name: 'han'
+                }
+            },
+            watch: {
+                // 'name' (newVal, oldVal) {
+                //     console.log(this.$refs["name"].innerText)
+                // }
+            },
+            // computed: {
+            //     fullName: function() {
+
+            //     }
+            // }
+        })
+        // console.log(vm)
+        // 1.$el 指代当前的元素
+        // 2.$data 当前的数据对象
+        // 3.$nextTick 延迟执行 异步执行 dom操作必备
+        // 4.$watch 监听数据的变化
+        // 5.$options 所有的选项信息
+        // 6.$set 添加一个新数据，实现数据劫持，添加getset方法
+        // 7.$mount挂载 在内存中挂载，可能是虚拟DOM挂载vue实列，不是挂载到真实的dom就会使用到它。
+        vm.$watch('msg', (newVal, oldVal) => {
+            console.log(newVal, oldVal)
+        })
+        vm.$data.msg = '1'
+        vm.$data.msg = '2'
+        vm.$data.msg = '3'
+        // 放到缓存池里，数据变更了，但是真实的dom还没有更新，真实的dom更新是异步的
+        // 数据更新后，立即获取该dom下的值，发现视图并没有更新最新的值，因为dom更新是异步的
+        console.log(vm.$refs["app"].innerText)
+
+    </script>
+</body>
+</html>

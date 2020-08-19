@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">{{msg}}</div>
+    <div v-for="(a, index) in arr"></div>
+    <script>
+        // 所有的数据都会被合并到vm上，会被data覆盖掉（data里同名的会覆盖相同名字的方法）
+        let vm = new Vue({
+            el: '#app',
+            data () {
+                return {
+                    msg: 'hello',
+                    arr: [1, 2, 3]
+                }
+            }
+        })
+        // vue2.5版本以上加key 做domdiff算法
+
+    </script>
+</body>
+</html>
