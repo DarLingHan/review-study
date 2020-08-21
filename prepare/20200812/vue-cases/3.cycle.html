@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+    </div>
+        <script>
+            let vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: 'love'
+                },
+                beforeCreate () {
+                    console.log('******beforeCreate******')
+                    console.log('el', this.$el)
+                    console.log('data', this.$data)
+                    console.log('msg', this.msg)
+                },
+                created () {
+                    console.log('******created******')
+                    console.log('el', this.$el)
+                    console.log('data', this.$data)
+                    console.log('msg', this.msg)
+                },
+                beforeMount () {
+                    console.log('******beforeMount******')
+                    console.log('el', this.$el)
+                    console.log('data', this.$data)
+                    console.log('msg', this.msg)
+                },
+                mounted () {
+                    console.log('******mounted******')
+                    console.log('el', this.$el)
+                    console.log('data', this.$data)
+                    console.log('msg', this.msg)
+                },
+                beforeUpdate () {
+                    console.log('******beforeUpdate******')
+                    console.log('el', this.$el)
+                    console.log('data', this.$data)
+                    console.log('msg', this.msg)
+                    console.log('txt', document.getElementById('app').innerText)
+                },
+                updated () {
+                    console.log('******updated******')
+                    console.log('el', this.$el)
+                    console.log('data', this.$data)
+                    console.log('msg', this.msg)
+                    console.log('txt', document.getElementById('app').innerText)
+                },
+                beforeDestory () {
+                    console.log('******beforeDestory******')
+                    console.log('el', this.$el)
+                    console.log('data', this.$data)
+                    console.log('msg', this.msg)
+                },
+                destoryed () {
+                    console.log('******destoryed******')
+                    console.log('el', this.$el)
+                    console.log('data', this.$data)
+                    console.log('msg', this.msg)
+                }
+            })
+        </script>
+</body>
+</html>

@@ -65,3 +65,32 @@
 
     z内容没有发生变化，只是顺序调整一下，不用重新渲染。
 ```
+
+## 生命周期
+每个Vue实列创建经过的初始化过程——设置数据监听、编译模版、实例挂载到dom上并在数据变化时更新dom.
+在这个过程中——生命周期钩子函数
+
+    初始化一系列的属性 初始化生命周期
+- beforeCreate
+    数据添加监听事件
+- created
+    编译模版——》ast抽象语法树——》返回render函数
+- beforeMount
+    render函数——》diff算法——》patch后 最终的 虚拟dom
+    new watcher() 实例 插入before函数也就是在更新组件之前先执行 beforeUpdate钩子函数
+- mounted
+    虚拟node转化成真实dom
+- beforeUpdate
+    这时候新的虚拟dom有了，真实dom还未更新
+- updated
+    更新了真实dom
+- beforeDestory
+    实例销毁之前，实例的所有属性方法还是可用的
+- destory
+    实例销毁，所有的属性，方法，子实例都解绑销毁
+
+## Vue异步更新原理
+- 修改data的值，触发data的set
+- set调用dep的notify 通知相关的watcher进行更新（调用update方法）
+- 将当前watcher放到异步队列中 执行异步队列并传入回调
+- 在异步队列的回调中，对Queue中的Watcher进行排序，然后执行对应的DOM更新。
