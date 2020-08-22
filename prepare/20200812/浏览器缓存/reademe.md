@@ -43,3 +43,9 @@ Expires 和 Cache-control ——》 属于强制缓存
 Last-Modified / If-Modified-Since和Etag / If-None-Match ——》 属于协商缓存
 
 Pragma: no-cache兼容http 1.0 ，Cache-Control: no-cache是http 1.1提供的
+
+## cache-control的使用
+是否使用缓存 ——》不使用，no-store
+是否使用缓存 ——》使用，是否询问重新验证 ——》yes,no-cache
+是否使用缓存 ——》使用，是否询问重新验证 ——》no,是否允许代理缓存 ——》yes,public ——》最长的缓存时间是多久max-age 
+是否使用缓存 ——》使用，是否询问重新验证 ——》no,是否允许代理缓存 ——》no,private ——》最长的缓存时间是多久max-age
