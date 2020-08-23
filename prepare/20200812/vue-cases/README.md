@@ -94,3 +94,19 @@
 - set调用dep的notify 通知相关的watcher进行更新（调用update方法）
 - 将当前watcher放到异步队列中 执行异步队列并传入回调
 - 在异步队列的回调中，对Queue中的Watcher进行排序，然后执行对应的DOM更新。
+
+## 依赖收集的过程
+发生在beforeMount和mounted之间
+new Wacher(vm, updateComponent, noop)时会触发updateComponent方法
+这个方法做了 compile——>template——>AST——>Render Function——>Vnode——>patch——>真实dom的过程
+在这个过程中获取数据的时候就会获取到之前数据劫持的get方法，在这个get方法过程中就将当前的watcher放到依赖收集deps里去。
+当数据发生变更时，会触发数据劫持中的set方法，set方法会notify这些相关的watcher去update,最终实现视图的更新。
+
+
+# Vue的事件机制
+是通过事件队列来调度执行的。
+会等主进程空闲后进行调度。
+会等所有进程完成之后，再一次更新。
+
+保证dom操作是再当前任务完成后等下一个tick操作，或者说是当前tick的微任务阶段操作。
+
