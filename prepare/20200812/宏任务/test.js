@@ -1,4 +1,4 @@
-const { resolve, reject } = require("../promise/promiseEs5");
+// const { resolve, reject } = require("../promise/promiseEs5");
 
 var a = '1';
 console.log(a)
