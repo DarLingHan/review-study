@@ -1,0 +1,17 @@
+console.log(typeof null)
+console.log(typeof undefined)
+console.log(typeof 1)
+console.log(typeof 'aaa')
+console.log(typeof {})
+console.log(typeof Symbol())
+// console.log(typeof Boolean)
+console.log(typeof true)
+console.log(typeof [])
+console.log(typeof new Array())
+console.log(typeof new Function())
+console.log(typeof new Date())
+console.log(typeof new RegExp())
+
+console.log('*******')
+
+console.log([] instanceof Array)
