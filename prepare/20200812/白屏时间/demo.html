@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>白屏</title>
+  <script type="text/javascript">
+    // 不兼容performance.timing 的浏览器，如IE8
+    window.pageStartTime = Date.now();
+  </script>
+  <!-- 页面 CSS 资源 -->
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="page.css">
+  <script type="text/javascript">
+    // 白屏时间结束点
+    window.firstPaint = Date.now();
+  </script>
+</head>
+<body>
+  <!-- 页面内容 -->
+  <!-- 浏览器开始渲染 <body> 标签或者解析完 <head> 标签的时刻就是页面白屏结束的时间点。 -->
+  <!-- 可使用 Performance API 时
+  白屏时间 = firstPaint - performance.timing.navigationStart;
+  不可使用 Performance API 时
+  白屏时间 = firstPaint - pageStartTime -->
+</body>
+</html>

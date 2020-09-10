@@ -14,4 +14,17 @@
     flex
     order
     align-self
-    
+
+## 控制元素的显示与隐藏
+- 1. display:
+- 2. visibility
+- 3. opacity
+
+opacity VS visibility
+
+opacity 不可见 但是还可以点击触发事件； visibility不行
+        可以结合动画；visibility不行
+        设置后，z-轴上有优先级；visibility不会影响层叠关系
+        子元素的opacity值受父元素影响； visibility的子元素不受影响
+
+

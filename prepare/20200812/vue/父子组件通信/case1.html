@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+</head>
+<body>
+    <div id="main">
+        <my-child v-model="count"></my-child>
+    </div>
+    <script>
+        Vue.component('my-child', {
+            props: ['childCount'],
+            template: `
+                <div>
+                    {{childCount}}
+                    <button @click="add">add</button>
+                </div>
+            `,
+            model: {
+                // 定义传递给v-model的那个变量，绑定到哪个属性值上
+                prop: 'childCount',
+                // event:什么时候触发v-model行为
+                event: 'fatherChange'
+            },
+            methods: {
+                add() {
+                    this.$emit('fatherChange', ++this.childCount)
+                }
+            }
+        })
+        new Vue({
+            el: '#main',
+            data: {
+                count: 1
+            }
+        })
+    </script>
+</body>
+</html>

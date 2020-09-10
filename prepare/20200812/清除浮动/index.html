@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main {
+            border: 1px solid cyan;
+            /* 方式四 构建BFC区域  */
+            overflow: auto;
+            /* BFC 构建一块独立的区域 不受其他元素影响 他的高度还是会计算浮动元素的高度 */
+        }
+        .left-div {
+            width: 100px;
+            height: 100px;
+            background-color: purple;
+            float: left;
+        }
+        .right-txt{
+            /* clear: both; 清除浮动方式一 */
+        }
+        .end-item {
+            /* clear: both; 清除浮动方式二 父集的最后一个元素加上此属性 */
+        }
+        .bottom-txt {border: 1px solid yellow;}
+        /* .clear-fix::after {  方式三 伪元素
+            content: '';
+            display: block;
+            clear: both;
+        } */
+    </style>
+</head>
+<body>
+    <div class="main clear-fix">
+        <div class="left-div">aaa</div>
+        <div class="right-txt">
+            加油加油一定是他们没眼光
+        </div>
+        <div class="bottom-txt">bbb</div>
+        <div class="end-item"></div>
+    </div>
+</body>
+</html>

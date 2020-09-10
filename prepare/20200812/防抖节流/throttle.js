@@ -1,16 +1,18 @@
-function throttle (fn, delay) {
+function throttle(fn, delay) {
     let timer = null
     return function () {
         if (!timer) {
             timer = setTimeout(() => {
-                fn.apply(this, arguments)
+                fn()
                 timer = null
-            }, delay);
+            }, delay)
         }
     }
 }
+
 function doTh () {
-    console.log('节流')
+    let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+    console.log('当前位置', scrollTop)
 }
-window.addEventListener('scroll', throttle(doTh, 1000));
+window.onscroll = throttle(doTh, 1000)
 

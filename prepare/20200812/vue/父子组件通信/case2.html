@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+</head>
+<body>
+    <div id="main">
+        <my-child v-model="count"></my-child>
+    </div>
+    <script>
+        Vue.component('my-child', {
+            // props: ['childCount'],
+            props: ['value'],
+            template: `
+                <div>
+                    {{value}}
+                    <button @click="add">add</button>
+                </div>
+            `,
+            // model: {
+            //     prop: 'childCount',
+            //     event: 'fatherChange'
+            // },
+            methods: {
+                add() {
+                    // this.$emit('fatherChange', ++this.childCount)
+                    this.$emit('input', ++this.value)
+                }
+            }
+        })
+        new Vue({
+            el: '#main',
+            data: {
+                count: 1
+            }
+        })
+    </script>
+</body>
+</html>

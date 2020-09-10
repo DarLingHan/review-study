@@ -2,15 +2,15 @@
 
 function debounce (fn, delay) {
     let timer = null
-    return function () {
-        clearTimeout(timer)
-        timer = setTimeout(() => {
-            fn.apply(this, arguments)
-        }, delay)
+    return () => {
+        if (timer) clearTimeout(timer)
+        timer = setTimeout(fn, delay)
     }
 }
-
 function doTh () {
-    console.log('防抖')
+    let scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+    console.log('当前位置', scrollTop)
 }
-window.addEventListener('onscroll', debounce(doTh, 2000))
+window.onscroll = debounce(doTh, 1000)
+
+// 短时间内连续触发的事件，防抖可以让在某个时间期限内事件函数只执行一次ss

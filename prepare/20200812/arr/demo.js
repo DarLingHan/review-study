@@ -19,9 +19,15 @@
 //     return res
 // }
 
-let arrs = (arr) => {
-    return arr.reduce((pre, curr) => {
-        return [...pre, ...(Array.isArray(curr) ? arrs(curr) : [curr])]
-    }, [])
-}
-console.log(arrs([1, 3, 5, [3, 4], [3, [84389]]]))
+// let arrs = (arr) => {
+//     return arr.reduce((pre, curr) => {
+//         return [...pre, ...(Array.isArray(curr) ? arrs(curr) : [curr])]
+//     }, [])
+// }
+// console.log(arrs([1, 3, 5, [3, 4], [3, [84389]]]))
+
+let test = [1, 2, 3].forEach(element => {
+    console.log(element)
+    return element
+});
+console.log(test)

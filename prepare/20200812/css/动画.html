@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .css-test{
+            background-color: cyan;
+            /* animation: fade 3s linear 0s infinite alternate; */
+            animation: fade 3s linear 0s 1 normal;
+                    /* keyframes的名称 动画多久结束 动画的速度曲线 是否延迟 是否重复 是否反向播放*/
+        }
+        @keyframes fade {
+            0% {
+                opacity: 1;
+                width: 100px;
+                height: 100px;
+            }
+            50% {
+                opacity: 0.5;
+                width: 50px;
+                height: 100px;
+            }
+            100% {
+                opacity: 0;
+                width: 0;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="css-test"></div>
+    <img src="" alt="">
+    <script>
+        new Image().src=''
+    </script>
+</body>
+</html>
