@@ -27,4 +27,6 @@ opacity 不可见 但是还可以点击触发事件； visibility不行
         设置后，z-轴上有优先级；visibility不会影响层叠关系
         子元素的opacity值受父元素影响； visibility的子元素不受影响
 
-
+## 垂直居中 transform margin flex 三种性能方面的优先级
+transform一定是最优的，因为不会造成重排
+transform > flex > margin

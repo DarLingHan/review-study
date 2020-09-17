@@ -21,4 +21,5 @@ function arrs (arr) {
 
 // console.log(arrs([1, 3, 5, [3, 4], [3, [84389]]]))
 
-// console.log([1, 2, [3, 4]].flat())
+console.log([1, 2, [3, 4]].flat())
+console.log([...[1, 2, ...[3, 4]]])

@@ -10,8 +10,6 @@ function sum () {
         }
     }
 }
-
-
 var fd = sum()
 
 var fd2 = fd(10)(20)

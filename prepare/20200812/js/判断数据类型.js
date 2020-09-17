@@ -1,5 +1,6 @@
 console.log(typeof null)
 console.log(typeof undefined)
+console.log(typeof Object)
 console.log(typeof 1)
 console.log(typeof 'aaa')
 console.log(typeof {})
