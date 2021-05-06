@@ -1,7 +1,7 @@
 var length = 10
 
 function fn () {
-    console.log(this.length)
+    console.log(this.length) // 浏览器中 var定义的对象会被挂到window下
 }
 
 var obj = {
@@ -22,6 +22,6 @@ obj.method(fn, 1)
 
 2，fn函数被当成普通函数调用，所以函数内的this指向全局对象window
 
-3，一样是被当成对象调用，调用对象是arguments
+3，一样是被当成对象调用，调用对象是arguments 因为atguments的长度是2啊 所以是2
 
  */
