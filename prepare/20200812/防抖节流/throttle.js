@@ -1,3 +1,4 @@
+// 节流
 function throttle(fn, delay) {
     let timer = null
     return function () {

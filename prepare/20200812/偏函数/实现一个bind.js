@@ -39,3 +39,4 @@ var greeting = function () {
 var objGreeting = greeting.myBind(obj)
 var newObj = new objGreeting()
 console.log(newObj.value)
+// console.log(newObj.name)
