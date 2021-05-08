@@ -31,12 +31,12 @@ var greeting = function () {
     console.log(`welcome ${this.name}-${this.value}`)
 }
 
-// console.log(greeting.myBind(obj)())
+console.log(greeting.myBind(obj)())
 
 // var objGreeting = greeting.bind(obj)
 // var newObj = new objGreeting()
 // console.log(newObj.value)
-var objGreeting = greeting.myBind(obj)
-var newObj = new objGreeting()
-console.log(newObj.value)
+// var objGreeting = greeting.myBind(obj)
+// var newObj = new objGreeting()
+// console.log(newObj.value)
 // console.log(newObj.name)
